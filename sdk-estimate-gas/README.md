@@ -1,10 +1,10 @@
 # Estimate the costs of an Optimistic (L2) transaction
 
-[![Discord](https://img.shields.io/discord/667044843901681675.svg?color=768AD4&label=discord&logo=https%3A%2F%2Fdiscordapp.com%2Fassets%2F8c9701b98ad4372b58f13fd9f65f966e.svg)](https://discord-gateway.optimism.io)
-[![Twitter Follow](https://img.shields.io/twitter/follow/optimismFND.svg?label=optimismFND&style=social)](https://twitter.com/optimismFND)
+[![Discord](https://img.shields.io/discord/1087373765014454322)](https://discord.gg/rollux)
+[![Twitter Follow](https://img.shields.io/twitter/follow/RolluxL2?style=social)](https://twitter.com/RolluxL2)
 
 
-This tutorial teaches you how to use the Optimism SDK to estimate the gas costs of L2 transactions. 
+This tutorial teaches you how to use the Rollux SDK to estimate the gas costs of L2 transactions. 
 This calculation is complicated by the fact that the major cost is the cost of writing the transaction on L1, it doesn't work to just multiply the gas used by the transaction by the gas price, the same way you would on L1. 
 [You can read the details of the calculation here](https://help.optimism.io/hc/en-us/articles/4411895794715-Transaction-fees).
 
@@ -15,7 +15,7 @@ This calculation is complicated by the fact that the major cost is the cost of w
 [The node script](./gas.js) makes these assumptions:
 
 - You have [Node.js](https://nodejs.org/en/) running on your computer, as well as [yarn](https://classic.yarnpkg.com/lang/en/).
-- There is network connectivity to a provider on the Optimistic Goerli L2 network, and to the npm package registry.
+- There is network connectivity to a provider on the Rollux Tanenbaum L2 network, and to the npm package registry.
 
 
 ## Running the script

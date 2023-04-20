@@ -1,12 +1,10 @@
 name: greeter
 
-default_ecosystem: optimism
+default_ecosystem: rollux
 
 geth:
-  optimism:
-      goerli:
-         uri: https://goerli.optimism.io
-         # Normally the uri would be:
-         # https://opt-goerli.g.alchemy.com/v2/<key>
+  rollux:
+      tanenbaum:
+         uri: https://rpc-tanenbaum.rollux.com
 
 

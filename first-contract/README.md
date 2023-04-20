@@ -1,10 +1,11 @@
-# Writing your first contract on Optimism
+# Writing your first contract on Rollux
 
-[![Discord](https://img.shields.io/discord/667044843901681675.svg?color=768AD4&label=discord&logo=https%3A%2F%2Fdiscordapp.com%2Fassets%2F8c9701b98ad4372b58f13fd9f65f966e.svg)](https://discord-gateway.optimism.io)
-[![Twitter Follow](https://img.shields.io/twitter/follow/optimismFND.svg?label=optimismFND&style=social)](https://twitter.com/optimismFND)
+[![Discord](https://img.shields.io/discord/1087373765014454322)](https://discord.gg/rollux)
+[![Twitter Follow](https://img.shields.io/twitter/follow/RolluxL2?style=social)](https://twitter.com/RolluxL2)
+
 
 This tutorial assumes that you know how to program, but that you've never dealt with smart contracts, much less written one.
-If you are already familiar with Solidity [go here](../getting-started) for a tutorial that teaches you only how to use Optimism with the tools you already know.
+If you are already familiar with Solidity [go here](../getting-started) for a tutorial that teaches you only how to use Rollux with the tools you already know.
 
 ## Setup 
 
@@ -33,22 +34,21 @@ You can also use MetaMask on a mobile device (iOS or Android), but for software 
 
 ### Blockchain
 
-In this tutorial we'll use [Optimism](https://www.optimism.io/), an Ethereum Layer 2 blockchain, to run our contracts.
+In this tutorial we'll use [Rollux](https://www.rollux.com/), a Syscoin Layer 2 EVM-equivalent Rollup, to run our contracts.
 
-[Deploying contracts and interacting with them costs gas, which has to be purchased with Ether (also known as ETH)](https://ethereum.org/en/developers/docs/gas/). 
-On the production network that Ether costs money, it is part of the security mechanism of Ethereum.
-To avoid spending real money, we'll use Optimism Goerli, a test network built on top of Goerli.
-The test network also requires ETH, but it is test ETH you can get for free.
+[Deploying contracts and interacting with them costs gas, which has to be purchased with Syscoin (also known as SYS)](https://ethereum.org/en/developers/docs/gas/). There are a variety of sources from which to [acquire SYS](https://syscoin.org/get-sys). 
+On the production network real SYS costs money, which is part of the security mechanism of Syscoin.
+To avoid spending real money, we'll use Rollux Tanenbaum, a test network built on top of Syscoin Tanenbaum.
+The test network also requires SYS, but it is test SYS (aka TSYS) you can get for free.
 
-1. Use [this faucet](https://optimismfaucet.xyz/) to obtain Optimism Goerli test ETH.
-   Follow five [github](https://github.com/) users or organizations to get past the anti-Sybil defense.
+1. Use [this faucet](https://sysdomains.xyz/rollux-faucet) to obtain Rollux Tanenbaum test SYS.
 
-1. [Go here](https://chainid.link/?network=optimism-goerli) to add Optimism Goerli to your wallet. 
-   Click **Connect** on the web page and then **Approve** in MetaMask.
+1. [Go here](https://chainlist.org/chain/57000) to add Rollux Tanenbaum to your wallet. 
+   Click **Add to Metamask** on the web page and then **Approve** in MetaMask.
 
 1. Permit the network switch.
 
-1. See if you have anything on Optimism Goerli.
+1. See if you have anything on Rollux Tanenbaum.
 
 
 
@@ -58,6 +58,8 @@ The most common smart contract development language is called [Solidity](https:/
 Here we will use using an integrated development environment (IDE) called [Remix](https://remix.ethereum.org/).
 It has the significant advantage of requiring minimal set up because it runs in your browser.
 
+
+1. Make sure your Metamask wallet is connected to the Rollux Tanenbaum network.
 
 1. Go to [Remix](https://remix.ethereum.org).
 
@@ -96,10 +98,10 @@ It has the significant advantage of requiring minimal set up because it runs in 
 
    1. Copy the transaction hash from the remix console.
 
-   1. Open [Optimism Goerli on Etherscan](https://goerli-optimism.etherscan.io/).
+   1. Open the [Rollux Tanenbaum Blockscout explorer](https://rollux.tanenbaum.io/).
 
    1. Search for the transaction hash. 
-      Note that it may take a few minutes for Etherscan to get updated.
+      Note that it may take a few minutes for Blockscout to get updated.
 
 1. Back in Remix, click **retrieve** again to see that the value has changed.
 
@@ -195,5 +197,5 @@ This is another function definition, with a few differences:
 }
 ```
 
-To learn more Solidity we have [a list of resources](https://help.optimism.io/hc/en-us/articles/4412777835675-Developer-information#h_01FVSVQ5ZQFJDSRYY6WTY18F0N). 
+To learn more Solidity here is a convenient [list of resources](https://help.optimism.io/hc/en-us/articles/4412777835675-Developer-information#h_01FVSVQ5ZQFJDSRYY6WTY18F0N). 
 If you learn best by reading source code, [try here](https://ethereum.org/en/developers/tutorials/erc20-annotated-code/).

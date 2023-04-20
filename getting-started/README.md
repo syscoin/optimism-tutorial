@@ -1,44 +1,36 @@
-# Getting started developing for Optimism
+# Getting started developing for Rollux
 
-[![Discord](https://img.shields.io/discord/667044843901681675.svg?color=768AD4&label=discord&logo=https%3A%2F%2Fdiscordapp.com%2Fassets%2F8c9701b98ad4372b58f13fd9f65f966e.svg)](https://discord-gateway.optimism.io)
-[![Twitter Follow](https://img.shields.io/twitter/follow/optimismPBC.svg?label=optimismPBC&style=social)](https://twitter.com/optimismPBC)
+[![Discord](https://img.shields.io/discord/1087373765014454322)](https://discord.gg/rollux)
+[![Twitter Follow](https://img.shields.io/twitter/follow/RolluxL2?style=social)](https://twitter.com/RolluxL2)
 
-This tutorial teaches you the basics of Optimism development.
-Optimism is [EVM equivalent](https://medium.com/ethereum-optimism/introducing-evm-equivalence-5c2021deb306), meaning we run a slightly modified version of the same `geth` you run on mainnet.
-Therefore, the differences between Optimism development and Ethereum development are minor.
+This tutorial teaches you the basics of Rollux development.
+Rollux is based upon Optimism Bedrock and is [EVM equivalent](https://medium.com/ethereum-optimism/introducing-evm-equivalence-5c2021deb306), meaning we run a slightly modified version of the same `geth` you run on Ethereum mainnet.
+Therefore, the differences between Rollux development and Ethereum development are minor.
 But a few differences [do exist](https://community.optimism.io/docs/developers/build/differences/#).
 
-#### See video
 
-If you prefer watching tutorials rather than reading them, we have this great video covering the getting started content:
+## Rollux endpoint URL
 
-[![getting started video](https://img.youtube.com/vi/_Y6CwsYgqwI/default.jpg)](https://youtu.be/_Y6CwsYgqwI)
+To access any Ethereum type network you need an endpoint. RPC and WSS endpoints for Rollux are visible on [Chainlist](https://chainlist.org/?search=rollux&testnets=true).
 
-## Optimism endpoint URL
-
-To access any Ethereum type network you need an endpoint. 
-We recommend you get one from [Alchemy, our preferred provider](https://www.alchemy.com/).
-[See here](../ecosystem/alchemy/) for step by step directions on using Alchemy.
-
-Alternatively, we have [other great providers](https://community.optimism.io/docs/useful-tools/providers/) that support our networks.
-
+Another great option for a Rollux RPC endpoint is [Ankr](https://www.ankr.com/rpc/rollux).
 
 
 ### Network choice
 
-For development purposes we recommend you use either a local development node or [Optimism Goerli](https://goerli-explorer.optimism.io/).
+For development purposes we recommend you use either a local development node or [Rollux Tanenbaum](https://rollux.tanenbaum.io/).
 That way you don't need to spend real money.
-If you need ETH on Optimism Goerli for testing purposes, [you can use this faucet](https://optimismfaucet.xyz/).
+If you need SYS on Rollux Tanenbaum for testing purposes, [you can use this faucet](https://sysdomains.xyz/rollux-faucet).
 
-The tests examples below all use either Optimism Goerli or the Optimism Bedrock beta testnet.
+The tests examples below all use the Rollux Tanenbaum testnet.
 
 
-## Interacting with Optimism contracts
+## Interacting with Rollux contracts
 
-We have [Hardhat's Greeter contract](https://github.com/nomiclabs/hardhat/blob/master/packages/hardhat-core/sample-projects/basic/contracts/Greeter.sol) on Optimism Goerli, at address [0x575E9B4f2c3945d7CF07cb76628d29DF471692B8](https://goerli-explorer.optimism.io/address/0x575E9B4f2c3945d7CF07cb76628d29DF471692B8). 
+We have [Hardhat's Greeter contract](https://github.com/nomiclabs/hardhat/blob/master/packages/hardhat-core/sample-projects/basic/contracts/Greeter.sol) on Rollux Tanenbaum, at address [0x32C00875ca5bc5e6E07A84a39F9fb177d4aeF816](https://rollux.tanenbaum.io/address/0x32C00875ca5bc5e6E07A84a39F9fb177d4aeF816). 
 You can verify your development stack configuration by interacting with it. 
 
-As you can see in the different development stacks below, the way you deploy contracts and interact with them on Optimism is almost identical to the way you do it with L1 Ethereum.
+As you can see in the different development stacks below, the way you deploy contracts and interact with them on Rollux is almost identical to the way you do it with L1 Ethereum.
 The most visible difference is that you have to specify a different endpoint (of course). 
 The list of other differences is [here](https://community.optimism.io/docs/developers/build/differences/).
 
@@ -54,24 +46,23 @@ The list of other differences is [here](https://community.optimism.io/docs/devel
 
 ### Hardhat
 
-In [Hardhat](https://hardhat.org/) you use a configuration similar to [this one](https://github.com/ethereum-optimism/optimism-tutorial/tree/main/getting-started/hardhat).
+In [Hardhat](https://hardhat.org/) you use a configuration similar to [this one](hardhat).
 
-#### Connecting to Optimism
+#### Connecting to Rollux
 
-Follow these steps to add Optimism Goerli support to an existing Hardhat project (or a newly created one). 
+Follow these steps to add Rollux Tanenbaum support to an existing Hardhat project (or a newly created one). 
 
-
-1. Define your network configuration in `.env`:
+d
+1. Define your mnemonic in `.env`:
 
    ```sh
-   # Put the mnemonic for an account on Optimism here
-   MNEMONIC=test test test test test test test test test test test junk
+      MNEMONIC=test test test test test test test test test test just junk
 
-   # API KEY for Alchemy
-   ALCHEMY_API_KEY=
+      # API KEY for Ankr.
+      ANKR_API_KEY=
 
-   # URL to access Optimism Goerli (if not using Alchemy)
-   OPTIMISM_GOERLI_URL=
+      # URL to access Rollux Tanenbaum (if not using Ankr)
+      ROLLUX_TANENBAUM_URL=https://rpc-tanenbaum.rollux.com
    ```
 
 1. Add `dotenv` to your project:
@@ -91,18 +82,21 @@ Follow these steps to add Optimism Goerli support to an existing Hardhat project
    1. Get the correct URL from the configuration:
 
       ```js
-      const optimismGoerliUrl =
-         process.env.ALCHEMY_API_KEY ?
-            `https://opt-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}` :
-            process.env.OPTIMISM_GOERLI_URL
+         /*This will default to ROLLUX_TANENBAUM_URL if 
+         you do not specify ANKR_API_KEY in .env */
+         const rolluxTanenbaumUrl = 
+         process.env.ANKR_API_KEY ? 
+            `https://rpc.ankr.com/rollux_testnet/${process.env.ANKR_API_KEY}` :
+            process.env.ROLLUX_TANENBAUM_URL
       ```
 
 
    1. Add a network definition in `module.exports.networks`:
 
    ```js
-   "optimism-goerli": {
-      url: optimismGoerliUrl,
+   "rollux-tanenbaum": {
+      url: rolluxTanenbaumUrl,
+      chainId: 57000,
       accounts: { mnemonic: process.env.MNEMONIC }
    }   
    ```
@@ -114,14 +108,14 @@ Follow these steps to add Optimism Goerli support to an existing Hardhat project
    ```sh
    cd hardhat
    yarn
-   yarn hardhat console --network optimism-goerli
+   yarn hardhat console --network rollux-tanenbaum
    ```
 
 1. Connect to the Greeter contract:   
 
    ```js
    Greeter = await ethers.getContractFactory("Greeter")
-   greeter = await Greeter.attach("0x575E9B4f2c3945d7CF07cb76628d29DF471692B8")
+   greeter = await Greeter.attach("0x32C00875ca5bc5e6E07A84a39F9fb177d4aeF816")
    ```   
 
 
@@ -152,24 +146,23 @@ await greeter.greet()
 
 ### Truffle
 
-In [Truffle](https://trufflesuite.com/) you use a configuration similar to [this one](https://github.com/ethereum-optimism/optimism-tutorial/tree/main/getting-started/truffle).
+In [Truffle](https://trufflesuite.com/) you use a configuration similar to [this one](truffle).
 
-#### Connecting to Optimism
+#### Connecting to Rollux
 
-Follow these steps to add Optimism Goerli support to an existing Truffle project. 
+Follow these steps to add Rollux Tanenbaum support to an existing Truffle project. 
 
 
 1. Define your network configuration in `.env`:
 
    ```sh
-   # Put the mnemonic for an account on Optimism here
-   MNEMONIC=test test test test test test test test test test test junk
+      MNEMONIC=test test test test test test test test test test just junk
 
-   # API KEY for Alchemy
-   ALCHEMY_API_KEY=
+      # API KEY for Ankr.
+      ANKR_API_KEY=
 
-   # URL to access Optimism Goerli (if not using Alchemy)
-   OPTIMISM_GOERLI_URL=
+      # URL to access Rollux Tanenbaum (if not using Ankr)
+      ROLLUX_TANENBAUM_URL=https://rpc-tanenbaum.rollux.com
    ```
 
 1. Add `dotenv` and `@truffle/hdwallet-provider` to your project:
@@ -196,20 +189,22 @@ Follow these steps to add Optimism Goerli support to an existing Truffle project
    1. Get the correct URL:
 
       ```js
-      const optimismGoerliUrl =
-         process.env.ALCHEMY_API_KEY ?
-            `https://opt-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}` :
-            process.env.OPTIMISM_GOERLI_URL
+         /*This will default to ROLLUX_TANENBAUM_URL if 
+         you do not specify ANKR_API_KEY in .env */
+         const rolluxTanenbaumUrl = 
+         process.env.ANKR_API_KEY ? 
+            `https://rpc.ankr.com/rollux_testnet/${process.env.ANKR_API_KEY}` :
+            process.env.ROLLUX_TANENBAUM_URL
       ```
 
    1. Add a network definition in `module.exports.networks`:
 
       ```js
-      "optimism-goerli": {
+      "rollux-tanenbaum": {
          provider: () => new HDWalletProvider(
             process.env.MNEMONIC,
-            optimismGoerliUrl),
-         network_id: 420
+            rolluxTanenbaumUrl),
+         network_id: 57000
       }
       ```
 
@@ -220,13 +215,13 @@ Follow these steps to add Optimism Goerli support to an existing Truffle project
 
    ```sh
    truffle compile
-   truffle console --network optimism-goerli
+   truffle console --network rollux-tanenbaum
    ```
 
 1. Connect to the Greeter contact.
 
    ```js
-   greeter = await Greeter.at("0x575E9B4f2c3945d7CF07cb76628d29DF471692B8")
+   greeter = await Greeter.at("0x32C00875ca5bc5e6E07A84a39F9fb177d4aeF816")
    ```
 
 1. Read information from the contact.
@@ -273,14 +268,14 @@ await greeter.greet()
 
 ### Remix
 
-#### Connecting to Optimism
+#### Connecting to Rollux
 
-In [Remix](https://remix.ethereum.org) you access Optimism through your own wallet.
+In [Remix](https://remix.ethereum.org) you access Rollux through your own wallet.
 
-1. Add Optimism Goerli to your wallet. 
-   The easiest way to do this is to use [chainid.link](https://chainid.link/?network=optimism-goerli).
+1. Add Rollux Tanenbaum to your wallet. 
+   The easiest way to do this is to use [chainlist.org](https://chainlist.org/?search=rollux&testnets=true).
 
-1. Log on with your wallet to Optimism Goerli.
+1. Log on with your wallet to Rollux Tanenbaum.
 
 1. Browse to [Remix](https://remix.ethereum.org/).
 1. Click the run icon (<img src="assets/remix-run-icon.png" height="24" valign="top" />).
@@ -291,9 +286,7 @@ In [Remix](https://remix.ethereum.org) you access Optimism through your own wall
 
 1. Click the run icon (<img src="assets/remix-run-icon.png" height="24" valign="top" />).
 
-1. Make sure your environment is **Injected Web3** and the network ID is **420**.
-
-   <img src="assets/remix-env.png" width="300" />
+1. Make sure your environment is **Injected Web3** and the network ID is **57000**, reflected by `Custom (57000) network`.
 
 1. Click the files icon (<img src="assets/remix-files-icon.png" height="24" valign="top" />).
 
@@ -306,7 +299,7 @@ In [Remix](https://remix.ethereum.org) you access Optimism through your own wall
 1. Click the run icon (<img src="assets/remix-run-icon.png" height="24" valign="top" />).
 
 1. Scroll down. 
-   In the At Address field, type the contract address `0x575E9B4f2c3945d7CF07cb76628d29DF471692B8`.
+   In the At Address field, type the contract address `0x32C00875ca5bc5e6E07A84a39F9fb177d4aeF816`.
    Then, click **At Address**. 
    Expand the contract to see you can interact with it.
 
@@ -318,8 +311,6 @@ In [Remix](https://remix.ethereum.org) you access Optimism through your own wall
 
 1. Type a greeting (preferably, one that starts with the word `Remix`) and then click **setGreeting**. Approve the transaction in your wallet. 
    Note that if the greeting includes a comma you need to enclose it in quotes.
-
-   <img src="assets/remix-tx.png" width="300" />
 
 1. See the results on the console and then click **greet** again to see the greeting changed (see it under the **greet** button).
 
@@ -349,8 +340,8 @@ Foundry does not give us a JavaScript console, everything can be done from the s
 1. Set the RPC URL and the contract address.
 
    ```sh
-   export ETH_RPC_URL= << Your Goerli URL goes here >>
-   export GREETER=0x575E9B4f2c3945d7CF07cb76628d29DF471692B8   
+   export ETH_RPC_URL= << Your Rollux Tanenbaum URL goes here >>
+   export GREETER=0x32C00875ca5bc5e6E07A84a39F9fb177d4aeF816   
    ```
 
 1. Call `greet()`. Notice that the response is provided in hex.
@@ -386,33 +377,6 @@ forge create --mnemonic-path ./mnem.delme Greeter \
    --constructor-args "Greeter from Foundry" --legacy
 ```
 
-
-#### Using the Optimism contract library
-
-This library is provided as an [npm package](https://www.npmjs.com/package/@eth-optimism/contracts), which is different from what forge expects.
-Here is how you can import it without importing the entire Optimism monorepo:
-
-1. Install the JavaScript tools if you don't already have them: [Node.js](https://nodejs.org/en/download/) and [yarn](https://classic.yarnpkg.com/lang/en/).
-
-1. Install the `@eth-optimism/contracts` library under `lib`.
-
-   ```sh
-   cd lib
-   yarn add @eth-optimism/contracts
-   ```
-
-1. If you are using `git`, add `node_modules` to [`.gitignore`](https://git-scm.com/docs/gitignore).
-
-1. The remapping that `forge` deduces is not the same as what you would have with hardhat.
-   To ensure source code compatibility, create a file (in the application's root directory) called `remappings.txt` with this content:
- 
-   ```
-   @eth-optimism/=lib/node_modules/@eth-optimism/
-   ```
-
-You can now run `forge build` with contracts that use the Optimism contract library.
-
-
 ### Brownie
 
 If you want to develop in Python, you can use the [Brownie](https://eth-brownie.readthedocs.io/en/stable/install.html) toolstack.
@@ -424,8 +388,8 @@ If you want to develop in Python, you can use the [Brownie](https://eth-brownie.
 1. Specify your mnemonic in `.env`:
 
    ```sh
-   # Put the mnemonic for an account on Optimism here
-   MNEMONIC=test test test test test test test test test test test junk
+   # Put the mnemonic for an account on Rollux here
+   MNEMONIC=test test test test test test test test test test just junk
    ```
 
 1. Install packages.
@@ -435,18 +399,19 @@ If you want to develop in Python, you can use the [Brownie](https://eth-brownie.
    pip3 install dotenv
    ```
 
-1. Update the `optimism-test` network.
+1. Add the `rollux-testnet` network.
 
    ```sh
-   brownie networks modify optimism-test chainid=420 \
-      explorer=goerli-optimism.etherscan.io \
-      host= << Optimism Goerli URL >>
+   brownie networks add Rollux Tanenbaum id=rollux-testnet \
+   host=https://rpc-tanenbaum.rollux.com chainid=57000 \
+   explorer=https://rollux.tanenbaum.io \
+   multicall2=0x1F359C32b5D8c9678b076eAac411A4d2Eb11E697
    ```
 
 1. Start the console.
 
    ```sh
-   brownie console --network optimism-test
+   brownie console --network rollux-testnet
    ```
 
    Note that the default color scheme assumes a dark background. 
@@ -477,7 +442,7 @@ If you want to develop in Python, you can use the [Brownie](https://eth-brownie.
 1. Create an object for the contract:
 
    ```python
-   greeter = Greeter.at("0x575E9B4f2c3945d7CF07cb76628d29DF471692B8")
+   greeter = Greeter.at("0x32C00875ca5bc5e6E07A84a39F9fb177d4aeF816")
    ```
 
 1. View the current greeting:
@@ -506,7 +471,7 @@ Greeter.deploy("Hello", {'from': accounts[0]})
 ### Apeworx
 
 
-#### Connect to Optimism
+#### Connect to Rollux
 
 1. Install [Apeworx](https://www.apeworx.io/) and create a new project.
 
@@ -519,8 +484,12 @@ Greeter.deploy("Hello", {'from': accounts[0]})
 1. Install plugins.
    In this tutorial we use Solidity, but Vyper is also supported by Apeworx.
 
-   ```sh
-   ape plugins install optimism solidity
+   Clone the ape-rollux repository and use [`setuptools`](https://github.com/pypa/setuptools) for the most up-to-date version:
+
+   ```bash
+   git clone https://github.com/bstr156/ape-rollux.git
+   cd ape-rollux
+   python3 setup.py install
    ```
 
 1. Import your account.
@@ -530,22 +499,17 @@ Greeter.deploy("Hello", {'from': accounts[0]})
    ape accounts import test --use-mnemonic
    ```
 
-1. Create an [Alchemy](https://dashboard.alchemy.com/) account and create an **Optimistic Goerli** app.
-   [See here for detailed directions](https://github.com/ethereum-optimism/optimism-tutorial/tree/main/ecosystem/alchemy).
-
 1. Edit the configuration file, `ape-config.yaml`:
 
    ```yaml
    name: greeter
 
-   default_ecosystem: optimism
+   default_ecosystem: rollux
 
    geth:
-     optimism:
-       goerli:
-         uri: https://goerli.optimism.io
-         # Normally the uri would be:
-         # https://opt-goerli.g.alchemy.com/v2/<key>
+   rollux:
+         tanenbaum:
+            uri: https://rpc-tanenbaum.rollux.com
    ```
 
 #### Greeter interaction
@@ -554,13 +518,13 @@ Greeter.deploy("Hello", {'from': accounts[0]})
 1. Start the console:
 
    ```sh
-   ape console --network optimism:goerli
+   ape console --network rollux:tanenbaum
    ```
 
 1. Connect to the Greeter contract:   
 
    ```python
-   greeter = project.get_contract("Greeter").at("0x575E9B4f2c3945d7CF07cb76628d29DF471692B8")
+   greeter = project.get_contract("Greeter").at("0x32C00875ca5bc5e6E07A84a39F9fb177d4aeF816")
    ```   
 
 1. Read information from the contract:
@@ -599,15 +563,13 @@ project.get_contract("Greeter").deploy("Hello", sender=acct)
 It is best to start development with the EVM provided by the development stack. 
 Not only is it faster, but such EVMs often have extra features, such as the [ability to log messages from Solidity](https://hardhat.org/tutorial/debugging-with-hardhat-network.html) or a [graphical user interface](https://trufflesuite.com/ganache/).
 
-After you are done with that development, debug your decentralized application using either a [development node](https://community.optimism.io/docs/developers/build/dev-node/) or the [Goerli test network](https://community.optimism.io/docs/useful-tools/networks/). 
-This lets you debug parts that are Optimism specific such as calls to bridges to transfer assets between layers.
+After you are done with that development, debug your decentralized application using either a development node or the Rollux Tanenbaum test network. 
+This lets you debug parts that are Rollux specific such as calls to bridges to transfer assets between layers.
 
 Only when you have a version that works well on a test network should you deploy to the production network, where every transaction has a cost.
 
 ### Contract source verification
 
-You don't have to upload your source code to [block explorers](https://community.optimism.io/docs/useful-tools/explorers/), but it is a good idea. 
+You don't have to upload your source code to block explorers, but it is a good idea. 
 On the test network it lets you issue queries and transactions from the explorer's user interface.
 On the production network it lets users know exactly what your contract does, which is conducive to trust.
-
-Just remember, if you use [the Etherscan API](https://explorer.optimism.io/apis), you need one API key for Optimism and a separate one for Optimism Goerli.

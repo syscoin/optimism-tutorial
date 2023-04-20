@@ -21,11 +21,11 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 require('dotenv').config()
 
-      
-const optimismGoerliUrl =
-    process.env.ALCHEMY_API_KEY ?
-        `https://opt-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}` :
-        process.env.OPTIMISM_GOERLI_URL
+//This will default to ROLLUX_TANENBAUM_URL if you do not specify ANKR_API_KEY in .env      
+const rolluxTanenbaumUrl = 
+  process.env.ANKR_API_KEY ? 
+    `https://rpc.ankr.com/rollux_testnet/${process.env.ANKR_API_KEY}` :
+    process.env.ROLLUX_TANENBAUM_URL
 
 const words = process.env.MNEMONIC.match(/[a-zA-Z]+/g).length
 validLength = [12, 15, 18, 24]
@@ -82,12 +82,11 @@ module.exports = {
        networkCheckTimeout: 1000000000,
        timeoutBlocks: 300
     },
-    "optimism-goerli": {
+    "rollux-tanenbaum": {
       provider: () => new HDWalletProvider(
          process.env.MNEMONIC,
-         optimismGoerliUrl),
-      network_id: 420,
-      gas: 1e6
+         rolluxTanenbaumUrl),
+      network_id: 57000
    },
     // Useful for private networks
     // private: {
